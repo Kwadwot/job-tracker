@@ -5,6 +5,8 @@ import SearchBar from './components/SearchBar';
 import Filter from './components/Filter';
 import AddJobModal from './components/AddJobModal';
 
+const API_BASE_URL = 'http://localhost:5000/api';
+
 function App() {
   const [jobs, setJobs] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -28,11 +30,21 @@ function App() {
     });
   }, [jobs, searchTerm, selectedStatus, selectedPositionType]);
 
-  // TODO: Replace with actual API calls
-  // For now, using mock data
+
   useEffect(() => {
-    // This will be replaced with API call: fetch('/api/applications')
-    setJobs([]);
+    const fetchJobs = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/jobs`);
+        if (!response.ok){
+          throw new Error('Failed to fetch jobs');
+        }
+        const data = await response.json();
+        setJobs(data);
+      } catch (err) {
+        console.error('Error fetching jobs:', err);
+      }
+    };
+    fetchJobs([]);
   }, []);
 
   const handleAddJob = () => {
@@ -46,33 +58,79 @@ function App() {
   };
 
   const handleSaveJob = async (jobData) => {
-    // TODO: Replace with actual API call
-    if (jobToEdit) {
-      // PUT /api/applications/:id
-      setJobs(jobs.map(job =>
-        job.id === jobToEdit.id ? { ...jobToEdit, ...jobData } : job
-      ));
-    } else {
-      // POST /api/applications
-      const now = new Date();
-      // Format as local date string (YYYY-MM-DD) to avoid timezone issues
-      const localDateString = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    
+    try {
+      if (jobToEdit) {
+        // UPDATE job
+        const response = await fetch(`${API_BASE_URL}/jobs/${jobToEdit.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(jobData)
+        });
 
-      const newJob = {
-        id: Date.now(), // Temporary ID
-        position_type: jobData.position_type || 'Full-time', // ensure required fiel
-        ...jobData,
-        date_created: localDateString,
-        date_updated: new Date().toISOString()
-      };
-      setJobs([...jobs, newJob]);
+        if (!response.ok) {
+          throw new Error('Failed to update job');
+        }
+
+        const updatedJob = await response.json();
+        setJobs(jobs.map(job =>
+          job.id === updatedJob.id ? updatedJob : job
+        ));
+      } else {
+        // CREATE job
+        const response = await fetch(`${API_BASE_URL}/jobs`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(jobData)
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to create job');
+        }
+
+        const newJob = await response.json();
+        setJobs([...jobs, newJob]);
+        // const now = new Date();
+        // // Format as local date string (YYYY-MM-DD) to avoid timezone issues
+        // const localDateString = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
+        // const newJob = {
+        //   id: Date.now(), // Temporary ID
+        //   position_type: jobData.position_type || 'Full-time', // ensure required fiel
+        //   ...jobData,
+        //   date_created: localDateString,
+        //   date_updated: new Date().toISOString()
+        // };
+        // setJobs([...jobs, newJob]);
+      }
+    } catch (err) {
+      console.error('Error saving job:', err);
+      alert(`Failed to save job: ${err.message}`);
     }
   };
 
   const handleDeleteJob = async (id) => {
-    if (window.confirm('Are you sure you want to delete this application?')) {
-      // TODO: Replace with actual API call: DELETE /api/applications/:id
+    if (!window.confirm('Are you sure you want to delete this application?')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/jobs/${id}`, {
+        method: 'DELETE'
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete job');
+      }
+
       setJobs(jobs.filter(job => job.id !== id));
+    } catch (err) {
+      console.error('Error deleting job:', err);
+      alert(`Failed to delete job: ${err.message}`);
     }
   };
 

@@ -6,13 +6,13 @@ export function createJobsRouter(pool) {
     // GET all jobs
     router.get('/', async (req, res) => {
         try {
-            result = await pool.query(
-                `SELCT id, position, positon_type, company, location, site_link,
+            const result = await pool.query(
+                `SELECT id, position, position_type, company, location, site_link,
                     status, notes, date_created, date_applied, date_updated
                 FROM jobs
                 ORDER BY date_created DESC`
             );
-            res.json(result.rows[0]);
+            res.json(result.rows);
         } catch (err) {
             console.error('Error fetching jobs:', err);
             res.status(500).json({ error: 'Failed to fetch jobs' });

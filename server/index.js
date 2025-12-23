@@ -8,7 +8,7 @@ dotenv.config();
 const { Pool } = pkg;
 
 const app = express();
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 5000;
 
 const pool = new Pool({
     host: process.env.PGHOST,
