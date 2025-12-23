@@ -152,7 +152,7 @@ function App() {
           selectedStatus={selectedStatus}
           onStatusChange={setSelectedStatus}
           selectedPositionType={selectedPositionType}
-          onPositionType={setSelectedPositionType}
+          onPositionTypeChange={setSelectedPositionType}
         />
       </div>
 
