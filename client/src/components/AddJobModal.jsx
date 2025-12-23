@@ -10,6 +10,16 @@ const STATUS_OPTIONS = [
     'Withdrawn'
 ];
 
+const POSITION_TYPE_OPTIONS = [
+    'Full-time',
+    'Part-time',
+    'Contract',
+    'Internship',
+    'Temporary',
+    'Freelance',
+    'Other'
+];
+
 // ModalHeader component
 function ModalHeader({ title, onClose }) {
     return (
@@ -109,6 +119,17 @@ function JobForm({ formData, onChange, onSubmit, onCancel, isEditMode }) {
             />
 
             <FormField
+                id="position_type"
+                name="position_type"
+                label="Position Type"
+                type="select"
+                value={formData.position_type}
+                onChange={handleChange}
+                required
+                options={POSITION_TYPE_OPTIONS}
+            />
+
+            <FormField
                 id="company"
                 name="company"
                 label="Company/Organization"
@@ -179,6 +200,7 @@ function JobForm({ formData, onChange, onSubmit, onCancel, isEditMode }) {
 function AddJobModal({ isOpen, onClose, onSave, jobToEdit = null }) {
     const [formData, setFormData] = useState({
         position: '',
+        position_type: 'Full-time',
         company: '',
         location: '',
         site_link: '',
@@ -192,6 +214,7 @@ function AddJobModal({ isOpen, onClose, onSave, jobToEdit = null }) {
         if (jobToEdit) {
             setFormData({
                 position: jobToEdit.position || '',
+                position_type: jobToEdit.position_type || 'Ful-time',
                 company: jobToEdit.company || '',
                 location: jobToEdit.location || '',
                 site_link: jobToEdit.site_link || '',
@@ -202,6 +225,7 @@ function AddJobModal({ isOpen, onClose, onSave, jobToEdit = null }) {
         } else {
             setFormData({
                 position: '',
+                position_type: 'Ful-time',
                 company: '',
                 location: '',
                 site_link: '',
