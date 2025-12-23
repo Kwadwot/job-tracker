@@ -3,7 +3,7 @@
 -- ============================================
 
 -- ---------- CLEANUP (for development resets) ----------
-DROP TABLE IF EXISTS applications CASCADE;
+DROP TABLE IF EXISTS jobs CASCADE;
 DROP TYPE IF EXISTS application_status CASCADE;
 DROP TYPE IF EXISTS position_type CASCADE;
 
@@ -64,10 +64,10 @@ EXECUTE FUNCTION update_date_updated();
 
 -- ---------- OPTIONAL INDEXES ----------
 -- Speeds up filtering & sorting in the UI
-CREATE INDEX idx_applications_status ON jobs(status);
-CREATE INDEX idx_applications_company ON jobs(company);
-CREATE INDEX idx_applications_date_applied ON jobs(date_applied);
-CREATE INDEX idx_applications_date_created ON jobs(date_created);
+CREATE INDEX idx_jobs_status ON jobs(status);
+CREATE INDEX idx_jobs_company ON jobs(company);
+CREATE INDEX idx_jobs_date_applied ON jobs(date_applied);
+CREATE INDEX idx_jobs_date_created ON jobs(date_created);
 
 -- ============================================
 -- END OF SCHEMA
