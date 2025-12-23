@@ -4,8 +4,9 @@ import JobTable from './components/JobTable';
 import SearchBar from './components/SearchBar';
 import Filter from './components/Filter';
 import AddJobModal from './components/AddJobModal';
+import { supabase } from './supabase';
 
-const API_BASE_URL = 'http://localhost:5000/api';
+// const API_BASE_URL = 'http://localhost:5000/api';
 
 function App() {
   const [jobs, setJobs] = useState([]);
@@ -33,15 +34,25 @@ function App() {
 
   useEffect(() => {
     const fetchJobs = async () => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/jobs`);
-        if (!response.ok){
-          throw new Error('Failed to fetch jobs');
-        }
-        const data = await response.json();
+      // try {
+      //   const response = await fetch(`${API_BASE_URL}/jobs`);
+      //   if (!response.ok){
+      //     throw new Error('Failed to fetch jobs');
+      //   }
+      //   const data = await response.json();
+      //   setJobs(data);
+      // } catch (err) {
+      //   console.error('Error fetching jobs:', err);
+      // }
+      const { data, error } = await supabase
+        .from('jobs')
+        .select('*')
+        .order('date_created', { ascending: false });
+      
+      if (error) {
+        console.error('Error fetching jobs:', error);
+      } else {
         setJobs(data);
-      } catch (err) {
-        console.error('Error fetching jobs:', err);
       }
     };
     fetchJobs([]);
@@ -62,50 +73,57 @@ function App() {
     try {
       if (jobToEdit) {
         // UPDATE job
-        const response = await fetch(`${API_BASE_URL}/jobs/${jobToEdit.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(jobData)
-        });
+        // const response = await fetch(`${API_BASE_URL}/jobs/${jobToEdit.id}`, {
+        //   method: 'PUT',
+        //   headers: {
+        //     'Content-Type': 'application/json'
+        //   },
+        //   body: JSON.stringify(jobData)
+        // });
 
-        if (!response.ok) {
-          throw new Error('Failed to update job');
-        }
+        // if (!response.ok) {
+        //   throw new Error('Failed to update job');
+        // }
 
-        const updatedJob = await response.json();
+        // const updatedJob = await response.json();
+
+        const { data, error } = await supabase
+        .from('jobs')
+        .update(jobData)
+        .eq('id', jobToEdit.id)
+        .select()
+        .single();
+
+      if (error) throw error;
+
         setJobs(jobs.map(job =>
-          job.id === updatedJob.id ? updatedJob : job
+          job.id === updatedJob.id ? data : job
         ));
       } else {
         // CREATE job
-        const response = await fetch(`${API_BASE_URL}/jobs`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(jobData)
-        });
+        // const response = await fetch(`${API_BASE_URL}/jobs`, {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json'
+        //   },
+        //   body: JSON.stringify(jobData)
+        // });
 
-        if (!response.ok) {
-          throw new Error('Failed to create job');
-        }
+        // if (!response.ok) {
+        //   throw new Error('Failed to create job');
+        // }
 
-        const newJob = await response.json();
-        setJobs([...jobs, newJob]);
-        // const now = new Date();
-        // // Format as local date string (YYYY-MM-DD) to avoid timezone issues
-        // const localDateString = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+        // const newJob = await response.json();
 
-        // const newJob = {
-        //   id: Date.now(), // Temporary ID
-        //   position_type: jobData.position_type || 'Full-time', // ensure required fiel
-        //   ...jobData,
-        //   date_created: localDateString,
-        //   date_updated: new Date().toISOString()
-        // };
-        // setJobs([...jobs, newJob]);
+        const { data, error } = await supabase
+        .from('jobs')
+        .insert([jobData])
+        .select()
+        .single();
+
+      if (error) throw error;
+
+        setJobs([...jobs, data]);
       }
     } catch (err) {
       console.error('Error saving job:', err);
@@ -119,13 +137,20 @@ function App() {
     }
 
     try {
-      const response = await fetch(`${API_BASE_URL}/jobs/${id}`, {
-        method: 'DELETE'
-      });
+      // const response = await fetch(`${API_BASE_URL}/jobs/${id}`, {
+      //   method: 'DELETE'
+      // });
 
-      if (!response.ok) {
-        throw new Error('Failed to delete job');
-      }
+      // if (!response.ok) {
+      //   throw new Error('Failed to delete job');
+      // }
+
+      const { error } = await supabase
+        .from('jobs')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
 
       setJobs(jobs.filter(job => job.id !== id));
     } catch (err) {
