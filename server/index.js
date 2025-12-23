@@ -26,7 +26,7 @@ app.use(express.json());
 app.use('/api/jobs', createJobsRouter(pool));
 
 // Health check route
-app.get('api/health', (req, res) => res.json({ status: 'ok' }));
+app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
