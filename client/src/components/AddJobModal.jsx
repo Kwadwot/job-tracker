@@ -1,4 +1,3 @@
-// client/src/components/AddJobModal.jsx
 import { useState, useEffect } from 'react';
 
 const STATUS_OPTIONS = [
