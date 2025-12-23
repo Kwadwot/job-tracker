@@ -15,13 +15,13 @@ function App() {
   // Filter and search logic
   const filteredJobs = useMemo(() => {
     return jobs.filter((job) => {
-      const matchesSearch = 
+      const matchesSearch =
         job.position?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         job.company?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         job.location?.toLowerCase().includes(searchTerm.toLowerCase());
-      
+
       const matchesStatus = selectedStatus === 'All' || job.status === selectedStatus;
-      
+
       return matchesSearch && matchesStatus;
     });
   }, [jobs, searchTerm, selectedStatus]);
@@ -47,15 +47,19 @@ function App() {
     // TODO: Replace with actual API call
     if (jobToEdit) {
       // PUT /api/applications/:id
-      setJobs(jobs.map(job => 
+      setJobs(jobs.map(job =>
         job.id === jobToEdit.id ? { ...jobToEdit, ...jobData } : job
       ));
     } else {
       // POST /api/applications
+      const now = new Date();
+      // Format as local date string (YYYY-MM-DD) to avoid timezone issues
+      const localDateString = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
       const newJob = {
         id: Date.now(), // Temporary ID
         ...jobData,
-        date_created: new Date().toISOString(),
+        date_created: localDateString,
         date_updated: new Date().toISOString()
       };
       setJobs([...jobs, newJob]);
@@ -79,18 +83,18 @@ function App() {
       </header>
 
       <div className="controls-container">
-        <SearchBar 
-          searchTerm={searchTerm} 
-          onSearchChange={setSearchTerm} 
+        <SearchBar
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
         />
-        <Filter 
-          selectedStatus={selectedStatus} 
-          onStatusChange={setSelectedStatus} 
+        <Filter
+          selectedStatus={selectedStatus}
+          onStatusChange={setSelectedStatus}
         />
       </div>
 
-      <JobTable 
-        jobs={filteredJobs} 
+      <JobTable
+        jobs={filteredJobs}
         onEdit={handleEditJob}
         onDelete={handleDeleteJob}
       />
