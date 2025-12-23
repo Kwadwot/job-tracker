@@ -9,6 +9,7 @@ function App() {
   const [jobs, setJobs] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('All');
+  const [selectedPositionType, setSelectedPositionType] = useState('All');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [jobToEdit, setJobToEdit] = useState(null);
 
@@ -21,10 +22,11 @@ function App() {
         job.location?.toLowerCase().includes(searchTerm.toLowerCase());
 
       const matchesStatus = selectedStatus === 'All' || job.status === selectedStatus;
+      const matchesPositionType = selectedPositionType === 'All' || job.position_type === selectedPositionType;
 
-      return matchesSearch && matchesStatus;
+      return matchesSearch && matchesStatus && matchesPositionType;
     });
-  }, [jobs, searchTerm, selectedStatus]);
+  }, [jobs, searchTerm, selectedStatus, selectedPositionType]);
 
   // TODO: Replace with actual API calls
   // For now, using mock data
@@ -58,6 +60,7 @@ function App() {
 
       const newJob = {
         id: Date.now(), // Temporary ID
+        position_type: jobData.position_type || 'Full-time', // ensure required fiel
         ...jobData,
         date_created: localDateString,
         date_updated: new Date().toISOString()
@@ -90,6 +93,8 @@ function App() {
         <Filter
           selectedStatus={selectedStatus}
           onStatusChange={setSelectedStatus}
+          selectedPositionType={selectedPositionType}
+          onPositionType={selectedPositionType}
         />
       </div>
 

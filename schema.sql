@@ -5,6 +5,7 @@
 -- ---------- CLEANUP (for development resets) ----------
 DROP TABLE IF EXISTS applications CASCADE;
 DROP TYPE IF EXISTS application_status CASCADE;
+DROP TYPE IF EXISTS position_type CASCADE;
 
 -- ---------- ENUM TYPE ----------
 CREATE TYPE application_status AS ENUM (
@@ -16,11 +17,22 @@ CREATE TYPE application_status AS ENUM (
     'Withdrawn'
 );
 
+CREATE TYPE position_type AS ENUM (
+    'Full-time',
+    'Part-time',
+    'Contract',
+    'Internship',
+    'Temporary',
+    'Freelance',
+    'Other'
+);
+
 -- ---------- APPLICATIONS TABLE ----------
-CREATE TABLE applications (
+CREATE TABLE jobs (
     id SERIAL PRIMARY KEY,
 
     position VARCHAR(150) NOT NULL,
+    position_type position_type NOT NULL DEFAULT 'Full-time',
     company VARCHAR(150) NOT NULL,
     location VARCHAR(150),
 

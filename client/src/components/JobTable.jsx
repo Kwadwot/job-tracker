@@ -6,6 +6,7 @@ function TableHeader() {
     <thead>
       <tr>
         <th>Position</th>
+        <th>Position Type</th>
         <th>Company</th>
         <th>Location</th>
         <th>Status</th>
@@ -60,6 +61,7 @@ function TableBody({ jobs, onEdit, onDelete }) {
       {jobs.map((job) => (
         <tr key={job.id}>
           <td>{job.position}</td>
+          <td>{job.position_type || 'N/A'}</td>
           <td>{job.company}</td>
           <td>{job.location || 'N/A'}</td>
           <td>
