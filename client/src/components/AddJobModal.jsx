@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import './AddJobModal.css';
 
 const STATUS_OPTIONS = [
     'Not Applied',

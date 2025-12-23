@@ -1,3 +1,5 @@
+import './Filter.css';
+
 const STATUS_OPTIONS = [
     'All',
     'Not Applied',

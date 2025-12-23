@@ -1,3 +1,5 @@
+import './JobTable.css';
+
 // TableHeader component
 function TableHeader() {
     return (
