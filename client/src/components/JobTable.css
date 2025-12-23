@@ -35,6 +35,15 @@
     color: #374151;
     font-size: 0.95rem;
   }
+
+  .notes-cell {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #6b7280;
+    font-style: italic;
+  }
   
   .job-table tbody tr {
     transition: all 0.2s ease;
@@ -140,6 +149,10 @@
     .job-table th,
     .job-table td {
       padding: 0.75rem 0.5rem;
+    }
+
+    .notes-cell {
+      max-width: 100px;
     }
   
     .job-table th {

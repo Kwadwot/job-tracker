@@ -11,6 +11,7 @@ function TableHeader() {
           <th>Status</th>
           <th>Date Applied</th>
           <th>Date Created</th>
+          <th>Notes</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -28,6 +29,12 @@ function TableBody({ jobs, onEdit, onDelete }) {
         day: 'numeric' 
       });
     };
+
+    const truncateNotes = (notes, maxLength = 50) => {
+      if (!notes) return 'N/A';
+      if (notes.length <= maxLength) return notes;
+      return notes.substring(0, maxLength) + '...';
+    };
   
     return (
       <tbody>
@@ -43,6 +50,9 @@ function TableBody({ jobs, onEdit, onDelete }) {
             </td>
             <td>{formatDate(job.date_applied)}</td>
             <td>{formatDate(job.date_created)}</td>
+            <td className="notes-cell" title={job.notes || ''}>
+              {truncateNotes(job.notes)}
+            </td>
             <td className="actions-cell">
               {job.site_link && (
                 <a 
