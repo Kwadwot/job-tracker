@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import pkg from 'pg';
-import { createJobsRouter } from './routes/jobs';
+import { createJobsRouter } from './routes/jobs.js';
 
 dotenv.config();
 const { Pool } = pkg;
@@ -26,7 +26,7 @@ app.use(express.json());
 app.use('/api/jobs', createJobsRouter(pool));
 
 // Health check route
-router.get('api/health', (req, res) => res.json({ status: 'ok' }));
+app.get('api/health', (req, res) => res.json({ status: 'ok' }));
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
