@@ -21,7 +21,7 @@ const POSITION_TYPE_OPTIONS = [
   'Other'
 ];
 
-function Filter({ selectedStatus, onStatusChange }) {
+function Filter({ selectedStatus, onStatusChange, selectedPositionType, onPositionTypeChange }) {
   return (
     <div className="filter-container">
       <label htmlFor="status-filter" className="filter-label">
