@@ -58,16 +58,16 @@ $$ LANGUAGE plpgsql;
 
 -- ---------- TRIGGER ----------
 CREATE TRIGGER set_date_updated
-BEFORE UPDATE ON applications
+BEFORE UPDATE ON jobs
 FOR EACH ROW
 EXECUTE FUNCTION update_date_updated();
 
 -- ---------- OPTIONAL INDEXES ----------
 -- Speeds up filtering & sorting in the UI
-CREATE INDEX idx_applications_status ON applications(status);
-CREATE INDEX idx_applications_company ON applications(company);
-CREATE INDEX idx_applications_date_applied ON applications(date_applied);
-CREATE INDEX idx_applications_date_created ON applications(date_created);
+CREATE INDEX idx_applications_status ON jobs(status);
+CREATE INDEX idx_applications_company ON jobs(company);
+CREATE INDEX idx_applications_date_applied ON jobs(date_applied);
+CREATE INDEX idx_applications_date_created ON jobs(date_created);
 
 -- ============================================
 -- END OF SCHEMA
