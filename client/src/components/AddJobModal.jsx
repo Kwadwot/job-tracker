@@ -214,7 +214,7 @@ function AddJobModal({ isOpen, onClose, onSave, jobToEdit = null }) {
         if (jobToEdit) {
             setFormData({
                 position: jobToEdit.position || '',
-                position_type: jobToEdit.position_type || 'Ful-time',
+                position_type: jobToEdit.position_type || 'Full-time',
                 company: jobToEdit.company || '',
                 location: jobToEdit.location || '',
                 site_link: jobToEdit.site_link || '',
@@ -225,7 +225,7 @@ function AddJobModal({ isOpen, onClose, onSave, jobToEdit = null }) {
         } else {
             setFormData({
                 position: '',
-                position_type: 'Ful-time',
+                position_type: 'Full-time',
                 company: '',
                 location: '',
                 site_link: '',

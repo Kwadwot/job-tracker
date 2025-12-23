@@ -35,10 +35,11 @@ export function createJobsRouter(pool) {
 
             const result = await pool.query(
                 `INSERT INTO jobs
-                (postion, position_type, company, location, site_link,
+                (position, position_type, company, location, site_link,
                     status, notes, date_applied)
                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-                RETURNING *`
+                RETURNING id, position, position_type, company, location,
+                     site_link, status, notes, date_created, date_applied, date_updated`,
                 [position, position_type, company, location, site_link, status, notes, date_applied || null]
             );
 
@@ -65,17 +66,18 @@ export function createJobsRouter(pool) {
             } = req.body;
 
             const result = await pool.query(
-                `UPADTE jobs
-                SET postion = $1,
+                `UPDATE jobs
+                SET position = $1,
                     position_type = $2,
                     company = $3,
-                    location $4,
+                    location = $4,
                     site_link = $5,
                     status = $6,
                     notes = $7,
                     date_applied = $8
                 WHERE id = $9
-                RETURNING *`
+                RETURNING id, position, position_type, company, location,
+                     site_link, status, notes, date_created, date_applied, date_updated`,
                 [position, position_type, company, location, site_link, status, notes, date_applied || null, id]
             );
 
@@ -96,7 +98,7 @@ export function createJobsRouter(pool) {
             const { id } = req.params
 
             const result = await pool.query(
-                `DELETE FROM jobs WHERE id = $1 RETURNING id`
+                `DELETE FROM jobs WHERE id = $1 RETURNING id`,
                 [id]
             );
 
