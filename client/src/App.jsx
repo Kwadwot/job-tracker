@@ -1,9 +1,9 @@
 import { useState, useEffect, useMemo } from 'react';
 import './App.css';
-import JobTable from 'components/JobTable';
-import SearchBar from 'components/SearchBar';
-import Filter from 'components/Filter';
-import AddJobModal from 'components/AddJobModal';
+import JobTable from './components/JobTable';
+import SearchBar from './components/SearchBar';
+import Filter from './components/Filter';
+import AddJobModal from './components/AddJobModal';
 
 function App() {
   const [jobs, setJobs] = useState([]);
