@@ -270,6 +270,7 @@ Copyright (c) 2025 Kwadwot
 ### Current Limitations
 - **Underutilized `date_updated`**: The timestamp field exists but isn't displayed or used for sorting/filtering
 - **Basic Date Display**: The "Date Created" column could show relative time (e.g., "3 days ago") instead of absolute dates
+- **Filter Display**: The "Filter By Position Type" appears off-screen on mobile screens in portrait mode.
 - **Manual Status Updates**: No automatic status progression or deadline tracking
 - **Simple Search**: Text search could be enhanced with fuzzy matching or advanced filters
 
