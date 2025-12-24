@@ -4,7 +4,7 @@ A modern, full-stack web application for tracking job applications with real-tim
 
 ## 🌐 Live Deployment
 
-[🚀 View Deployed Application](https://job-tracker-cfgm2y4bb-kwadwos-projects-2f09ee48.vercel.app/)
+[🚀 View Deployed Application](https://job-tracker-pearl-phi.vercel.app/)
 
 ## 🚀 Features
 
