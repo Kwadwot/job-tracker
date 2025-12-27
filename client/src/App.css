@@ -71,15 +71,17 @@
 .search-section,
 .filter-section {
   flex: 1;
-  min-width: 280px;
+  min-width: 250px;
 }
 
 .search-section {
   flex-basis: 400px;
+  max-width: 500px;
 }
 
 .filter-section {
-  flex-basis: 500px;
+  flex-basis: 450px;
+  max-width: 600px;
 }
 
 @media (max-width: 768px) {
@@ -111,6 +113,10 @@
   .search-section,
   .filter-section {
     flex-basis: auto;
-    min-width: auto;
+    min-width: 200px;
+  }
+
+  .filter-section {
+    min-width: 300px;
   }
 }
