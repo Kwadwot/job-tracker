@@ -124,6 +124,6 @@
 /* Mobile landscape adjustments */
 @media (min-width: 769px) and (max-width: 900px) {
   .filter-section {
-    max-width: 550px;  /* Allow more width for landscape */
+    max-width: 400px;  /* More reasonable width */
   }
 }
