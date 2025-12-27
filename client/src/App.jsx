@@ -169,16 +169,20 @@ function App() {
       </header>
 
       <div className="controls-container">
-        <SearchBar
-          searchTerm={searchTerm}
-          onSearchChange={setSearchTerm}
-        />
-        <Filter
-          selectedStatus={selectedStatus}
-          onStatusChange={setSelectedStatus}
-          selectedPositionType={selectedPositionType}
-          onPositionTypeChange={setSelectedPositionType}
-        />
+        <div className="search-section">
+          <SearchBar
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+          />
+        </div>
+        <div className="filter-section">
+          <Filter
+            selectedStatus={selectedStatus}
+            onStatusChange={setSelectedStatus}
+            selectedPositionType={selectedPositionType}
+            onPositionTypeChange={setSelectedPositionType}
+          />
+        </div>
       </div>
 
       <JobTable
