@@ -97,7 +97,7 @@ function App() {
         if (error) throw error;
 
         setJobs(jobs.map(job =>
-          job.id === updatedJob.id ? data : job
+          job.id === data.id ? data : job
         ));
       } else {
         // CREATE job
