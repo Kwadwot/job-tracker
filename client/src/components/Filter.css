@@ -53,6 +53,7 @@
 /* Ensure proper mobile layout - flex-wrap handles most cases, but ensure labels are visible */
 @media (max-width: 768px) {
   .filter-container {
+    flex-wrap: wrap;
     gap: 0.75rem;
   }
 
