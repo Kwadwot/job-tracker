@@ -3,7 +3,6 @@
     align-items: center;
     gap: 1rem;
     margin-bottom: 1.5rem;
-    flex-wrap: wrap;
   }
   
   .filter-label {
@@ -51,11 +50,9 @@
     color: #374151;
   }
 
-/* Stack filters vertically on smaller screens to prevent overflow */
+/* Ensure proper mobile layout - flex-wrap handles most cases, but ensure labels are visible */
 @media (max-width: 768px) {
   .filter-container {
-    flex-direction: column;
-    align-items: stretch;
     gap: 0.75rem;
   }
 
@@ -67,8 +64,7 @@
   }
 
   .filter-select {
-    min-width: 100%;
-    width: 100%;
+    min-width: 120px;
     font-size: 1rem;
     padding: 0.75rem;
   }

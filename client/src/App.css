@@ -70,7 +70,7 @@
 
 .search-section,
 .filter-section {
-  flex: 1;
+  flex: 0 1 auto;
   min-width: 250px;
 }
 
@@ -80,8 +80,8 @@
 }
 
 .filter-section {
-  flex-basis: 450px;
-  max-width: 600px;
+  flex-basis: 350px;
+  max-width: 500px;
 }
 
 @media (max-width: 768px) {
