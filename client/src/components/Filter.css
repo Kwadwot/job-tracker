@@ -68,14 +68,16 @@
     min-width: 120px;
     font-size: 1rem;
     padding: 0.75rem;
+    flex: 0 1 auto;  /* Override flex: 1 for mobile */
   }
 }
 
-/* Mobile landscape - allow some growth but constrain width */
+/* Mobile landscape - constrain width and prevent excessive growth */
 @media (min-width: 769px) and (max-width: 900px) {
   .filter-select {
     min-width: 140px;
     max-width: 180px;
+    flex: 0 1 auto;  /* Override flex: 1 to prevent growth */
   }
 }
 
@@ -89,5 +91,6 @@
   .filter-select {
     min-width: 140px;
     max-width: 200px;
+    flex: 0 1 auto;  /* Override flex: 1 to prevent growth */
   }
 }
