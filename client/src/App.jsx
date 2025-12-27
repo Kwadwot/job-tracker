@@ -88,13 +88,13 @@ function App() {
         // const updatedJob = await response.json();
 
         const { data, error } = await supabase
-        .from('jobs')
-        .update(jobData)
-        .eq('id', jobToEdit.id)
-        .select()
-        .single();
+          .from('jobs')
+          .update(jobData)
+          .eq('id', jobToEdit.id)
+          .select()
+          .single();
 
-      if (error) throw error;
+        if (error) throw error;
 
         setJobs(jobs.map(job =>
           job.id === updatedJob.id ? data : job
@@ -116,10 +116,10 @@ function App() {
         // const newJob = await response.json();
 
         const { data, error } = await supabase
-        .from('jobs')
-        .insert([jobData])
-        .select()
-        .single();
+          .from('jobs')
+          .insert([jobData])
+          .select()
+          .single();
 
       if (error) throw error;
 
