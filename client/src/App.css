@@ -81,7 +81,7 @@
 
 .filter-section {
   flex-basis: 350px;
-  max-width: 500px;
+  max-width: 450px;
 }
 
 @media (max-width: 768px) {
@@ -118,12 +118,5 @@
 
   .filter-section {
     min-width: 300px;
-  }
-}
-
-/* Mobile landscape adjustments */
-@media (min-width: 769px) and (max-width: 900px) {
-  .filter-section {
-    max-width: 400px;  /* More reasonable width */
   }
 }
